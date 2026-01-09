@@ -15,6 +15,20 @@ document.addEventListener("DOMContentLoaded", () => {
   if (roleParam) {
     // En jugador NO queremos el fondo de portada
     body.classList.remove("start-background");
+    // Abrir historia/reglas automáticamente al entrar al host
+if (window.jQuery && typeof window.jQuery.fn.modal === "function") {
+  window.jQuery("#storyModal").modal("show");
+
+  const openStoryBtn = document.getElementById("openStoryBtn");
+  if (openStoryBtn) {
+    openStoryBtn.addEventListener("click", () => {
+      window.jQuery("#storyModal").modal("show");
+    });
+  }
+} else {
+  console.warn("Bootstrap modal no disponible. Revisá que jQuery + bootstrap.js estén cargados.");
+}
+
 
     renderPlayerView(roleParam, imagesFolder);
     playerView.classList.remove("hidden");

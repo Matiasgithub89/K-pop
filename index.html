@@ -17,6 +17,77 @@
   <!-- Subí la versión si estabas cacheando -->
   <link rel="stylesheet" href="css/style.css?v=3" />
 </head>
+<!-- =======================
+     MODAL: HISTORIA Y REGLAS
+     ======================= -->
+<div
+  class="modal fade"
+  id="storyModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="storyModalTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="storyModalTitle">🌙 Valeria's Mystery: The K-pop Warriors</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <p class="mb-3">
+          Bienvenidos a <strong>"Valeria's Mystery: The K-pop Warriors"</strong>. En este juego de deducción social,
+          de <strong>4 o más participantes</strong>, adaptamos la dinámica de la mafia a una historia de guerreras K-pop
+          en la playa de Valeria del Mar.
+        </p>
+
+        <div class="mb-3">
+          <h6 class="mb-2">🎭 Roles</h6>
+          <ul class="mb-0">
+            <li><strong>Guerrera Sanadora (Protectora)</strong>: puede proteger a alguien por la noche.</li>
+            <li><strong>Guerrera Detectivesca</strong>: busca descubrir a los demonios.</li>
+            <li><strong>Demonios encubiertos</strong>: intentan eliminar a las guerreras.</li>
+            <li><strong>Pueblo</strong>: debate y vota durante el día.</li>
+          </ul>
+        </div>
+
+        <div class="mb-3">
+          <h6 class="mb-2">🌓 Fases del juego</h6>
+          <ul class="mb-0">
+            <li><strong>Día:</strong> debatir, acusar y votar para eliminar a un posible demonio.</li>
+            <li><strong>Noche:</strong> los demonios eligen a quién “asesinar”, y la protectora puede salvar a alguien.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h6 class="mb-2">🏁 Condición de victoria</h6>
+          <ul class="mb-0">
+            <li>Ganan las guerreras si eliminan a <strong>todos los demonios</strong>.</li>
+            <li>Ganan los demonios si logran superar o eliminar a las guerreras.</li>
+          </ul>
+        </div>
+
+        <hr />
+
+        <p class="mb-0 text-muted" style="font-size: 0.9rem;">
+          El host <strong>no juega</strong>: solo reparte roles por QR (uno por turno).
+        </p>
+      </div>
+
+      <div class="modal-footer">
+        <button id="storyOkBtn" type="button" class="btn btn-primary" data-dismiss="modal">
+          Entendido ✅
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <body>
   <div class="app-shell">
 
