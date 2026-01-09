@@ -15,20 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if (roleParam) {
     // En jugador NO queremos el fondo de portada
     body.classList.remove("start-background");
-    // Abrir historia/reglas automáticamente al entrar al host
-if (window.jQuery && typeof window.jQuery.fn.modal === "function") {
-  window.jQuery("#storyModal").modal("show");
-
-  const openStoryBtn = document.getElementById("openStoryBtn");
-  if (openStoryBtn) {
-    openStoryBtn.addEventListener("click", () => {
-      window.jQuery("#storyModal").modal("show");
-    });
-  }
-} else {
-  console.warn("Bootstrap modal no disponible. Revisá que jQuery + bootstrap.js estén cargados.");
-}
-
 
     renderPlayerView(roleParam, imagesFolder);
     playerView.classList.remove("hidden");
@@ -45,6 +31,21 @@ if (window.jQuery && typeof window.jQuery.fn.modal === "function") {
   // Fondo de portada solo al inicio (setup)
   body.classList.add("start-background");
 
+  // Abrir historia/reglas automáticamente (si existe el modal en el HTML)
+  if (window.jQuery && typeof window.jQuery.fn.modal === "function") {
+    window.jQuery("#storyModal").modal("show");
+
+    const openStoryBtn = document.getElementById("openStoryBtn");
+    if (openStoryBtn) {
+      openStoryBtn.addEventListener("click", () => {
+        window.jQuery("#storyModal").modal("show");
+      });
+    }
+  } else {
+    // Si falta jQuery/bootstrap por alguna razón, no rompemos el juego
+    console.warn("Bootstrap modal no disponible. Revisá jQuery + bootstrap.js.");
+  }
+
   // Host UI
   const setupPanel = document.getElementById("setup-panel");
   const dealingPanel = document.getElementById("dealing-panel");
@@ -58,6 +59,22 @@ if (window.jQuery && typeof window.jQuery.fn.modal === "function") {
 
   const nextBtn = document.getElementById("nextBtn");
   const restartBtn = document.getElementById("restartBtn");
+
+  // Guardas: si falta algún elemento, evitamos que el script explote
+  if (
+    !setupPanel ||
+    !dealingPanel ||
+    !playersCountInput ||
+    !startBtn ||
+    !currentPlayerEl ||
+    !totalPlayersEl ||
+    !qrImg ||
+    !nextBtn ||
+    !restartBtn
+  ) {
+    console.error("Faltan elementos del DOM. Revisá IDs en el HTML.");
+    return;
+  }
 
   // Estado del reparto (solo en memoria)
   let rolesDeck = [];
@@ -119,6 +136,11 @@ if (window.jQuery && typeof window.jQuery.fn.modal === "function") {
 
     // Volvemos al inicio -> vuelve el fondo
     body.classList.add("start-background");
+
+    // Si querés, al reiniciar vuelve a mostrar el modal
+    if (window.jQuery && typeof window.jQuery.fn.modal === "function") {
+      window.jQuery("#storyModal").modal("show");
+    }
   });
 
   function renderCurrentQR() {
@@ -127,11 +149,8 @@ if (window.jQuery && typeof window.jQuery.fn.modal === "function") {
 
     const role = rolesDeck[currentIndex]; // "demonio" | "protectora" | "detective" | "pueblo"
 
-    // Construimos URL del jugador: misma página, con role=
-    const url = new URL(window.location.href);
-
-    // Limpia params viejos por las dudas (ej: si recargaste con cosas raras)
-    url.searchParams.delete("role");
+    // Construimos URL del jugador limpia: origen + ruta, y role=
+    const url = new URL(window.location.origin + window.location.pathname);
     url.searchParams.set("role", role);
 
     const qrUrl = buildQrApiUrl(url.toString(), 260);
